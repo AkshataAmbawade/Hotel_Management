@@ -27,7 +27,7 @@ const hotelinfo_Schema = mongoose.Schema({
         required: true
     },
     phone_no: {
-        type: Number,
+        type: String,
         unique: true,
         validate(value) {
             if (!validator.isMobilePhone(value)) {
@@ -36,7 +36,7 @@ const hotelinfo_Schema = mongoose.Schema({
         }
     },
     pin_no: {
-        type: Number,
+        type: String,
         required: true,
 
         validate(value) {

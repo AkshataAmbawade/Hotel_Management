@@ -16,7 +16,7 @@ const getCustomers = async (req, res) => {
 }
 
 const createCustomers = async (req, res) => {
-    var cusSchema = {
+    const cusSchema = {
         type: 'object',
         properties: {
             name: {
@@ -56,7 +56,7 @@ const createCustomers = async (req, res) => {
     console.log(data);
     const result = await Customer.insertMany([data])
     console.log(result)
-    res.send("Added")
+    res.send( " Customer Added Successfully")
 
 }
 
@@ -81,5 +81,94 @@ const updateCustomers = async (req, res) => {
     res.send(result)
 }
 
+const gethotels=async(req,res)=>{
+    const result=await hotel.find();
+    console.log(result);
+    res.send(result)
+}
+const createHotels=
+async (req, res) => {
+    const hotelSchema = {
+        type: 'object',
+        properties: {
+            name:
+            { 
+                type:"string"
+            },
+            email: {
+                type:"string"
+            },
+            address:{
+                type:"string"},
+            city:{
+                type:"string"
+            },
+            phone_no:{
+                type:"string"
+            },
+            pin_no:{
+                type:"string"
+            },
+            location_url:{
+                type: "string"
+            },
+            description:{ 
+                type:"string"
+            },
+            features:{
+                type:"string"
+            },
+            rating:{
+                type:"string"
+            },
+            check_in:{ 
+                type:"string"
+            },
+            check_out:{
+                type:"string"}
 
-module.exports = { getCustomers, createCustomers, deleteCustomers, findCustomers, updateCustomers };
+        },
+        required: ['name', 'email', 'address', 'city', 'phone_no','location_url','description','features','rating','check_in','check_out'],
+        additionalProperties: true
+    };
+
+    const ajv = new Ajv();
+    try {
+        const validate = ajv.addSchema(hotelSchema).compile(hotelSchema);
+        const valid = validate(req.body);
+        if (!valid) {
+            throw validate.errors[0].message;
+        }
+    } catch (error) {
+        console.log(error);
+        return res.send(error)
+    }
+    const data=req.body;
+    console.log(data);
+    const result=await hotel.insertMany([data])
+    console.log(result);
+    res.send("Hotel Added Successfully!!")
+}
+const findHotels=async(req,res)=>{
+    const data=req.body._id;
+    console.log(data);
+    const result=await hotel.findOne({_id:data});
+    console.log(result)
+    res.send("Found Hotel Successfully!!")
+}
+const deleteHotels=async(req,res)=>{
+    const data=req.body._id;
+    console.log(data);
+    const result=await hotel.deleteOne({_id:data})
+    console.log(result);
+    res.send("Hotel Deleted successfully")
+}
+const updateHotels = async (req, res) => {
+    const data = req.body;
+    console.log(data);
+    const result = await Customer.findByIdAndUpdate({ _id: data._id }, data, { new: true, runvalidator: true })
+    res.send("Hotel Details Updated successfully!!")
+}
+
+
+module.exports = { getCustomers, createCustomers, deleteCustomers, findCustomers, updateCustomers ,gethotels,createHotels,findHotels, deleteHotels,updateHotels};
