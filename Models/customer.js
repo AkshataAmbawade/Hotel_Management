@@ -73,6 +73,10 @@ const customerinfo_Schema = new mongoose.Schema({
         type: String,
         require: true,
         trim: true
+    },
+    hotel_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Hotel"
     }
 })
 

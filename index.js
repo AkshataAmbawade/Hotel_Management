@@ -40,15 +40,16 @@ mongoose.connect("mongodb://localhost:27017/Hotel_Management")
 // createDoc();
 
 
-// "name": "TAj",
-// "email":"Taj@gmail.com",
+// "name": "Grand Residency Hotel ",
+// "email":"GrandResidencyHotel@gmail.com",
 // "address":"Apollo bandar, colaba , Mumbai,Maharashtra",
 // "city": "Mumbai",
-// "phone_no":1111111111,
-// "pin_no": 400001,
+// "phone_no":"1112111111",
+// "pin_no": "402001",
 // "location_url": "gfgjkhafkj",
 // "description": "The Taj Mahal Palace is a heritage, five-star, luxury hotel in the Colaba area of Mumbai, Maharashtra, India, situated next to the Gateway of India.",
 // "features":"Options of smoking & non-smoking accommodation.Complimentary Wi-Fi for resident guests.Luxurious rooms & suites with iconic Arabian Sea & Gateway of India views.Marble bathrooms with luxury bath amenities OR Five-fixture bathrooms with luxury bath amenities.",
 // "rating": "*****",
 // "check_in": "2022-10-11",
-// "check_out": "22-10-12"
+// "check_out": "2022-10-12"
+

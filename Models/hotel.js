@@ -1,5 +1,6 @@
 const validator = require("validator");
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { Customer } = require("../Controllers/export");
 
 
 const hotelinfo_Schema = mongoose.Schema({
@@ -68,7 +69,8 @@ const hotelinfo_Schema = mongoose.Schema({
     check_out: {
         type: Date,
         required: true
-    }
+    },
+
 
 })
 module.exports = mongoose.model("Hotel", hotelinfo_Schema)
