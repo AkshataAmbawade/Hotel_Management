@@ -2,21 +2,14 @@ const validator = require("validator");
 const mongoose = require('mongoose')
 const bookingino_Schema = mongoose.Schema({
     customer_name: String,
-    customer_id: {
+    Customer_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Custormer"
+        ref: "Customer"
     },
-    hotel_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Hotel"
-    },
-    room_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Room"
-    },
+    
     check_in: {
         type: Date,
-        required: this
+        required: true
     },
     check_out: {
         type: Date,
@@ -25,6 +18,10 @@ const bookingino_Schema = mongoose.Schema({
     booking_date: {
         type: Date,
         required: true
+    },
+    payment_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'payment'
     }
 
 

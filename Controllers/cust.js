@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Ajv = require('ajv')
-const { Customer, hotel, booking, payment, room } = require('./export');
+const { Customer, hotel, booking, payment, Room } = require('./export');
 mongoose.connect("mongodb://localhost:27017/Hotel_Management")
     .then(() => {
         console.log("--Welcome to the Hotel--")
@@ -343,10 +343,58 @@ const output=async(req,res)=>{
         res.json(err.message)
     }
 }
+const rooms=async (req,res)=>{
+    try{
+        const data=req.body;
+        const result=await Room.create(data);
+        console.log(result);
+        res.status(200).json(result)
+    }catch(err){
+        res.status(500).json(err.message)
+    }
+}
+const booking_info=async(req,res)=>{
+   try{
+    const data=req.body;
+    const result=await booking.create(data);
+    console.log(result);
+    res.status(200).json(result)
+   }catch(err){
+    res.status(500).json(err.message)
+   }
+}
+const populateBooking=async(req,res)=>{
+    try{
+        const result=await booking.find().populate('Customer_id')
+        console.log(result);
+        res.status(200).json(result)
+    }catch(err)
+    {
+        res.status(500).json(err.message)
+    }
+}
+const paymentInfo=async(req,res)=>{
+    try{
+       const data=req.body;
+       const result=await  payment.create(data);
+       console.log(result);
+       res.status(200).json(result)
+    }catch(err){
+        res.status(500).json(err.message)
+    }
+}
+const populatePayments=async(req,res)=>{
+    try{
+        const result=await payment.find().populate('customer_id')
+        console.log(result);
+        res.status(200).json(result);
 
+    }catch(err){
+        res.status(500).json(err.message)
+    }
+}
 
-
-module.exports = { getCustomers, createCustomers, deleteCustomers, findCustomers, updateCustomers, getHotels, createHotels, findHotels, deleteHotels, updateHotels, projectCustomers, paginationCustomers ,paginationHotels,populatCustomers,insertmanyHotels, saveCustomers, keyword, searchCustomers,keywordPagination,output};
+module.exports = { getCustomers, createCustomers, deleteCustomers, findCustomers, updateCustomers, getHotels, createHotels, findHotels, deleteHotels, updateHotels, projectCustomers, paginationCustomers ,paginationHotels,populatCustomers,insertmanyHotels, saveCustomers, keyword, searchCustomers,keywordPagination,output, rooms,booking_info,populateBooking, paymentInfo,populatePayments};
 
 
 // $expr to compare two fields inside a document. Where $expr is an operator but not an aggregation stage. So operators needs to be used inside stages, can't stand on their own in an aggregation pipeline 

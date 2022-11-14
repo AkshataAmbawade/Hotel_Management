@@ -3,10 +3,10 @@ const mongoose = require('mongoose')
 
 
 const payment_Schema = mongoose.Schema({
-    customer_name: String,
+
     customer_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Custormer"
+        ref: "Customer"
     },
     booking_id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -27,7 +27,7 @@ const payment_Schema = mongoose.Schema({
         type: String,
         enum: ["paid", "unpaid"],
         default: "unpaid"
-    },
+    }
 
 
 })

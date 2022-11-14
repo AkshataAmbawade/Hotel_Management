@@ -77,6 +77,19 @@ const customerinfo_Schema = new mongoose.Schema({
     hotel_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Hotel"
+    },
+    room_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Room"
+    },
+    booking_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Booking"
+    },
+    payment_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"payment"
+
     }
 })
 

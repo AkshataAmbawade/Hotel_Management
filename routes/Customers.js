@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const { getCustomers, createCustomers, deleteCustomers, findCustomers, updateCustomers, getHotels, createHotels, findHotels, deleteHotels, updateHotels, projectCustomers, paginationCustomers,paginationHotels,populatCustomers, saveCustomers, keyword, searchCustomers, insertmanyHotels, keywordPagination, output} = require('../Controllers/cust');
+const { getCustomers, createCustomers, deleteCustomers, findCustomers, updateCustomers, getHotels, createHotels, findHotels, deleteHotels, updateHotels, projectCustomers, paginationCustomers,paginationHotels,populatCustomers, saveCustomers, keyword, searchCustomers, insertmanyHotels, keywordPagination, output, rooms, booking_info, populateBooking, paymentInfo, populatePayments} = require('../Controllers/cust');
 
 
 router.route('/getCustomers').get(getCustomers);
@@ -25,6 +25,11 @@ router.route("/searchCustomers").get(searchCustomers);
 router.route("/insertmanyHotels").post(insertmanyHotels);
 router.route("/keywordpagination").get(keywordPagination);
 router.route("/output").get(output);
+router.route("/createRooms").post(rooms);
+router.route("/bookingInfo").post(booking_info);
+router.route("/populateBooking").get(populateBooking);
+router.route("/payment").post(paymentInfo);
+router.route("/populatePayments").get(populatePayments)
 
 
 
