@@ -1,6 +1,6 @@
 const validator = require("validator");
 const mongoose = require('mongoose');
-const { Customer } = require("../Controllers/export");
+// const { Customer } = require("../Controllers/export");
 
 
 const hotelinfo_Schema = mongoose.Schema({

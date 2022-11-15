@@ -2,7 +2,7 @@ const validator = require("validator");
 const mongoose = require('mongoose')
 const bookingino_Schema = mongoose.Schema({
     customer_name: String,
-    Customer_id: {
+    customer_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Customer"
     },

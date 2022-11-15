@@ -8,10 +8,6 @@ const payment_Schema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Customer"
     },
-    booking_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Booking"
-    },
     payment_date: {
         type: Date,
         required: true
