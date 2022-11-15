@@ -1,5 +1,13 @@
 const express = require('express');
+const mongoose=require('mongoose');
 const app = express();
+mongoose.connect("mongodb://localhost:27017/Hotel_Management")
+    .then(() => {
+        console.log("--Welcome to the Hotel--")
+    })
+    .catch((err) => {
+        console.log(err)
+    })
 
 const Router = require('./routes/Customers');
 const hotelRouter = require('./routes/Customers');
@@ -11,7 +19,7 @@ app.use("/api/v1/customers",Router);
 app.use("/api/v1/hotels",hotelRouter);
 app.use("/api/v1/rooms",roomRouter);
 app.use("/api/v1/booking",bookingRouter);
-app.unsubscribe("/api/v1/payment",paymentRouter);
+app.use("/api/v1/payment",paymentRouter);
 
 
 

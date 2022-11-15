@@ -1,12 +1,12 @@
 const mongoose=require('mongoose');
 const {payment}=require("./export");
-mongoose.connect("mongodb://localhost:27017/Hotel_Management")
-    .then(() => {
-        console.log("--Welcome to the Hotel--")
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+// mongoose.connect("mongodb://localhost:27017/Hotel_Management")
+//     .then(() => {
+//         console.log("--Welcome to the Hotel--")
+//     })
+//     .catch((err) => {
+//         console.log(err)
+//     })
 
     const paymentInfo = async (req, res) => {
         try {

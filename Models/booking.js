@@ -2,7 +2,7 @@ const validator = require("validator");
 const mongoose = require('mongoose')
 const bookingino_Schema = mongoose.Schema({
     customer_name: String,
-    customer_id: {
+    Customer_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Customer"
     },
@@ -22,7 +22,24 @@ const bookingino_Schema = mongoose.Schema({
     payment_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'payment'
+    },
+    payment_date: {
+        type: Date,
+        required: true
+    },
+    amount: Number,
+    tax: Number,
+    grand_total: Number,
+    mode: {
+        type: String,
+        enum: ["cash", "card"]
+    },
+    status: {
+        type: String,
+        enum: ["paid", "unpaid"],
+        default: "unpaid"
     }
+
 
 
 

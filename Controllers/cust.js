@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const Ajv = require('ajv')
 const { Customer, hotel, booking, payment, Room } = require('./export');
-mongoose.connect("mongodb://localhost:27017/Hotel_Management")
-    .then(() => {
-        console.log("--Welcome to the Hotel--")
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+// mongoose.connect("mongodb://localhost:27017/Hotel_Management")
+//     .then(() => {
+//         console.log("--Welcome to the Hotel--")
+//     })
+//     .catch((err) => {
+//         console.log(err)
+//     })
 
 const getCustomers = async (req, res) => {
     try {
