@@ -1,39 +1,26 @@
 const mongoose=require('mongoose');
 const {booking, payment}=require("./export")
-// mongoose.connect("mongodb://localhost:27017/Hotel_Management")
-//     .then(() => {
-//         console.log("--Welcome to the Hotel--")
-//     })
-//     .catch((err) => {
-//         console.log(err)
-//     })
+
     const booking_info = async (req, res) => {
         try {
-            const data = req.body;
-            const result = await booking.create(data);
-            console.log(result);
+             data = req.body;
+            let result1 = await booking.create(data);
+            console.log(result1);
+            let result = await payment.create(data);
+            console.log(result)
+            // const pay=result._id
+            result=await booking.updateOne({_id:result1._id},{payment_id:result._id})
+            // console.log(pay)
+            
             res.status(200).json(result)
-            const pay={
-                customer_id:result.customer_id,
-                booking_id:result._id,
-                payment_date:result.payment_date,
-                amount:result.amount,
-                tax:tax.tax,
-                grand_total:result.grand_total,
-                mode:result.mode,
-                status:result.status
-            }
-    const payments=new payment(pay)
-    payments=await payments.save();
-            // const result1 = await payment.create(pay);
-            // res.status(200).json(result1)
+        
         } catch (err) {
             res.status(500).json(err.message)
         }
     }
     const populateBooking = async (req, res) => {
         try {
-            const result = await booking.find().populate('customer_id ')
+            const result = await booking.find().populate('customer_id' ).populate('payment_id')
             console.log(result);
             res.status(200).json(result)
         } catch (err) {

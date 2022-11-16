@@ -1,13 +1,7 @@
 const mongoose = require('mongoose');
 const Ajv = require('ajv')
-const { Customer, hotel, booking, payment, Room } = require('./export');
-// mongoose.connect("mongodb://localhost:27017/Hotel_Management")
-//     .then(() => {
-//         console.log("--Welcome to the Hotel--")
-//     })
-//     .catch((err) => {
-//         console.log(err)
-//     })
+const { Customer, hotel } = require('./export');
+
 
 const getCustomers = async (req, res) => {
     try {
@@ -144,123 +138,6 @@ const saveCustomers = async (req, res) => {
     }
 }
 
-
-// const createHotels =
-//     async (req, res) => {
-//         const hotelSchema = {
-//             type: 'array',
-//             properties: {
-//                 name:
-//                 {
-//                     type: "string"
-//                 },
-//                 email: {
-//                     type: "string"
-//                 },
-//                 address: {
-//                     type: "string"
-//                 },
-//                 city: {
-//                     type: "string"
-//                 },
-//                 phone_no: {
-//                     type: "string"
-//                 },
-//                 pin_no: {
-//                     type: "string"
-//                 },
-//                 location_url: {
-//                     type: "string"
-//                 },
-//                 description: {
-//                     type: "string"
-//                 },
-//                 features: {
-//                     type: "string"
-//                 },
-//                 rating: {
-//                     type: "string"
-//                 },
-//                 check_in: {
-//                     type: "string"
-//                 },
-//                 check_out: {
-//                     type: "string"
-//                 }
-
-//             },
-//             required: ['name', 'email', 'address', 'city', 'phone_no', 'location_url', 'description', 'features', 'rating', 'check_in', 'check_out'],
-//             additionalProperties: true
-//         };
-
-//         const ajv = new Ajv();
-//         try {
-//             const validate = ajv.addSchema(hotelSchema).compile(hotelSchema);
-//             const valid = validate(req.body);
-//             if (!valid) {
-//                 throw validate.errors[0].message;
-//             }
-//         } catch (err) {
-//             console.log(err);
-//         }
-//         const data = req.body;
-//         console.log(data);
-//         const result = await hotel.insertMany(data)
-//         console.log(result);
-//         res.status(200).json(result)
-//     }
-// const findHotels = async (req, res) => {
-//     try {
-//         const data = req.params.id;
-//         console.log(data);
-//         const result = await hotel.findOne({ _id: data });
-//         console.log(result)
-//         res.status(200).json(result)
-//     } catch (error) {
-//         res.status(500).json(error)
-//     }
-// }
-// const deleteHotels = async (req, res) => {
-//     try {
-//         const data = req.body._id;
-//         console.log(data);
-//         const result = await hotel.deleteOne({ _id: data })
-//         console.log(result);
-//         res.status(200).json(result)
-//     } catch (error) {
-//         res.status(500).json(error)
-//     }
-// }
-// const updateHotels = async (req, res) => {
-//     try {
-//         const data = req.body;
-//         console.log(data);
-//         const result = await hotel.findByIdAndUpdate({ _id: data._id }, data, { new: true, runvalidator: true })
-//         res.status(200).json(result)
-//     } catch (error) {
-//         res.status(500).json(result)
-//     }
-// }
-// const paginationHotels = async (req, res) => {
-//     const page = req.query.page;
-//     const limit = parseInt(req.query.limit);
-//     console.log(page);
-//     console.log(limit);
-//     try {
-//         const result = await hotel.aggregate([
-//             { $skip: (page - 1) * limit },
-//             { $limit: limit },
-//             { $sort: { name: 1 } },
-
-
-//         ])
-//         console.log(result);
-//         res.status(200).json(result)
-//     } catch (err) {
-//         res.status(500).json(err)
-//     }
-// }
-
 const populatCustomers = async (req, res) => {
     try {
         const result = await Customer.find().populate('hotel_id')
@@ -339,67 +216,6 @@ const output = async (req, res) => {
         res.json(err.message)
     }
 }
-// const rooms = async (req, res) => {
-//     try {
-//         const data = req.body;
-//         const result = await Room.create(data);
-//         console.log(result);
-//         res.status(200).json(result)
-//     } catch (err) {
-//         res.status(500).json(err.message)
-//     }
-// }
-// const booking_info = async (req, res) => {
-//     try {
-//         const data = req.body;
-//         const result = await booking.create(data);
-//         console.log(result);
-//         res.status(200).json(result)
-//         // const pay={
-//         //     customer_id:"",
-//         //     booking_id:"",
-//         //     payment_date:"",
-//         //     amount:"",
-//         //     tax:"",
-//         //     grand_total:"",
-//         //     mode:"",
-//         //     status:""
-//         // }
-
-//         const result1 = await payment.create(data);
-//         res.status(200).json(result1)
-//     } catch (err) {
-//         res.status(500).json(err.message)
-//     }
-// }
-// const populateBooking = async (req, res) => {
-//     try {
-//         const result = await booking.find().populate('customer_id ')
-//         console.log(result);
-//         res.status(200).json(result)
-//     } catch (err) {
-//         res.status(500).json(err.message)
-//     }
-// }
-// const paymentInfo = async (req, res) => {
-//     try {
-//         const data = req.body;
-//         const result = await payment.create(data);
-//         console.log(result);
-//         res.status(200).json(result)
-//     } catch (err) {
-//         res.status(500).json(err.message)
-//     }
-// }
-// const populatePayment = async (req, res) => {
-//     try {
-//         const result = await payment.find().populate('customer_id ')
-//         console.log(result);
-//         res.status(200).json(result)
-//     } catch (err) {
-//         res.status(500).json(err.message)
-//     }
-// }
 
 
 module.exports = { getCustomers, createCustomers, deleteCustomers, findCustomers, updateCustomers, projectCustomers, paginationCustomers, populatCustomers, insertmanyHotels, saveCustomers, keyword, searchCustomers, keywordPagination, output, };

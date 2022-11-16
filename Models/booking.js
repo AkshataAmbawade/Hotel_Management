@@ -1,12 +1,12 @@
 const validator = require("validator");
 const mongoose = require('mongoose')
 const bookingino_Schema = mongoose.Schema({
-    customer_name: String,
-    Customer_id: {
+
+    customer_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Customer"
     },
-    
+
     check_in: {
         type: Date,
         required: true
@@ -19,9 +19,9 @@ const bookingino_Schema = mongoose.Schema({
         type: Date,
         required: true
     },
-    payment_id:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'payment'
+    payment_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Payment'
     },
     payment_date: {
         type: Date,
@@ -38,7 +38,7 @@ const bookingino_Schema = mongoose.Schema({
         type: String,
         enum: ["paid", "unpaid"],
         default: "unpaid"
-    }
+    },
 
 
 
