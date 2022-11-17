@@ -4,7 +4,7 @@ const router = express.Router();
 
 const { getCustomers, createCustomers, deleteCustomers, findCustomers, updateCustomers, projectCustomers, paginationCustomers,populatCustomers, saveCustomers, keyword, searchCustomers, insertmanyHotels, keywordPagination, output, } = require('../Controllers/cust');
 const {rooms}=require('../Controllers/Rooms');
-const{booking_info,populateBooking}=require('../Controllers/Booking');
+const{booking_info,populateBooking, status, total}=require('../Controllers/Booking');
 const{getHotels, createHotels, findHotels, deleteHotels, updateHotels, paginationHotels}=require("../Controllers/Hotel")
 
 
@@ -33,7 +33,12 @@ router.route("/createHotels").post(createHotels);
 router.route("/findHotels").post(findHotels);
 router.route("/deleteHotels").post(deleteHotels);
 router.route("/updateHotels").put(updateHotels);
-router.route("/paginationHotels").get(paginationHotels)
+router.route("/paginationHotels").get(paginationHotels);
+router.route("/bookingInfo").post(booking_info);
+
+
+router.route("/status").get(status);
+router.route("/total").get(total)
 
 
 
