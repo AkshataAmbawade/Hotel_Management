@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 
 const payment_Schema = mongoose.Schema({
-
+customer_name:String,
     customer_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Customer"
