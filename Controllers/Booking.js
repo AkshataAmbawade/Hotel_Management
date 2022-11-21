@@ -112,6 +112,7 @@ const total = async (req, res) => {
                             ],
                         },
                     },
+                    total: { $sum: "$grand_total" },
                 },
             },
             {
