@@ -112,7 +112,6 @@ const total = async (req, res) => {
                             ],
                         },
                     },
-                    total: { $sum: "$grand_total" },
                 },
             },
             {
@@ -121,28 +120,45 @@ const total = async (req, res) => {
                     customer_id: "$_id.customer_id",
                     customer_name: "$_id.customer_name",
                     total: 1,
-                    Paid: "$Paid",
-                    Unpaid: "$Unpaid",
-                },
-            },
-            {
-                $project: {
-                    _id: 0,
-                    customer_id: "customer_id",
-                    customer_name: "$customer_name",
-                    total: 1,
                     Paid: "$Paid.paid",
                     Unpaid: "$Unpaid.unpaid",
+                
                 },
             },
             {
                 $project: {
                     _id: 0,
-                    customer_id: "customer_id",
-                    customer_name: "$customer_name",
-                    total: 1,
+                    customer_id: 1,
+                    customer_name: 1,
                     Paid: { $arrayElemAt: ["$Paid", 0] },
                     Unpaid: { $arrayElemAt: ["$Unpaid", 0] },
+                    
+                    // Total: { $sum: ["$Paid", "$Unpaid"] }
+
+                },
+            },
+            {
+                $project: {
+                    // _id: 0,
+                    customer_id: 1,
+                    customer_name: 1,
+                    Total: { $sum: ["$Paid", "$Unpaid"] },
+                    Unpaid: { $ifNull: ["$Unpaid", 0] },
+                    Paid: { $ifNull: ["$Paid", 0] },
+
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                    customer_id: 1,
+                    customer_name: 1,
+                    Paid: 1,
+                    Unpaid: 1,
+                    Total: 1,
+                    Status: {
+                        $cond: [{ $eq: ["$Unpaid", 0] }, "Paid", "Unpaid"],
+                    },
                 },
             },
 
@@ -157,6 +173,14 @@ const total = async (req, res) => {
 const lastEntry = async (req, res) => {
     try {
         const result = await booking.aggregate([
+            {
+                $lookup: {
+                    from: "payment",
+                    localField: "_id",
+                    foreignField: "payment_id",
+                    as: "entry",
+                },
+            },
             {
                 $group: {
                     _id: { customer_id: "$customer_id" },
@@ -183,6 +207,7 @@ const lastEntry = async (req, res) => {
         res.status(500).json(err.message);
     }
 };
+
 
 module.exports = { booking_info, populateBooking, status, total, lastEntry };
 
@@ -214,3 +239,6 @@ module.exports = { booking_info, populateBooking, status, total, lastEntry };
 // { $facet: {status: [{$match: {$expr: { $eq: [ "$status","paid" ]}}} ] }} ,
 // {$project:{_id:0,customer_id:1,grand_total:1,status:1}},
 // { $group: {_id: {id:"$customer_id"}, total: { $sum: "$grand_total" } } },
+
+// Paid: { $arrayElemAt: ["$Paid", 0] },
+// Unpaid: { $arrayElemAt: ["$Unpaid", 0] },

@@ -5,7 +5,10 @@ const router = express.Router();
 const { getCustomers, createCustomers, deleteCustomers, findCustomers, updateCustomers, projectCustomers, paginationCustomers,populatCustomers, saveCustomers, keyword, searchCustomers, insertmanyHotels, keywordPagination, output, } = require('../Controllers/cust');
 const {rooms}=require('../Controllers/Rooms');
 const{booking_info,populateBooking, status, total,lastEntry}=require('../Controllers/Booking');
-const{getHotels, createHotels, findHotels, deleteHotels, updateHotels, paginationHotels}=require("../Controllers/Hotel")
+const{getHotels, createHotels, findHotels, deleteHotels, updateHotels, paginationHotels}=require("../Controllers/Hotel");
+const { fetchapi } = require('../Controllers/fetchApi');
+const { axiosApi } = require('../Controllers/axiosApi');
+
 
 
 
@@ -42,8 +45,25 @@ router.route("/total").get(total);
 router.route("/lastEntry").get(lastEntry)
 
 
+router.route("/api").get(fetchapi)
+router.route("/axiosApi").get(axiosApi)
+
+
 
 
 
 
 module.exports = router
+
+
+// const fetchapi = async (req, res) => {
+//     try {
+//         const fetchData = await fetch(url, options).then((res) => res.json())
+//         res.status(200).json(fetchData)
+//         // console.log(fetchapi)
+//     }
+//     catch (err) { res.status(500).json(err.message) }
+// }
+// // fetchApi()
+
+// module.exports = { fetchapi }
