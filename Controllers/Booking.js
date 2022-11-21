@@ -94,6 +94,7 @@ const total = async (req, res) => {
                         customer_id: "$customer_id",
                         customer_name: "$customer_name",
                     },
+                   
                     Paid: {
                         $push: {
                             $cond: [
@@ -109,6 +110,7 @@ const total = async (req, res) => {
                                 { $eq: ["$status", "unpaid"] },
                                 { unpaid: "$total" },
                                 "$$REMOVE",
+                                
                             ],
                         },
                     },
@@ -161,6 +163,8 @@ const total = async (req, res) => {
                     },
                 },
             },
+            {$project:{_id:0,customer_id:1,customer_name:1,Paid:1,Unpaid:1,  Total: { $sum: ["$Paid", "$Unpaid"] },
+            Status: { $cond: [{ $eq: ["$Unpaid", 0] }, "Paid", "Unpaid"] }}}
 
             // {$group:{_id:{Paid:"$Paid", Unpaid:"$Unpaid"}}}
         ]);
@@ -187,6 +191,15 @@ const lastEntry = async (req, res) => {
                     lastEntry: { $last: "$$ROOT" },
                 },
             },
+            {
+                    $lookup: {
+                      from: "booking",
+                      localField: "payment_id",
+                      foreignField: "_id",
+                      as: "payment",
+                    },
+                  },
+                
             {
                 $project: {
                     _id: 0,
@@ -239,6 +252,3 @@ module.exports = { booking_info, populateBooking, status, total, lastEntry };
 // { $facet: {status: [{$match: {$expr: { $eq: [ "$status","paid" ]}}} ] }} ,
 // {$project:{_id:0,customer_id:1,grand_total:1,status:1}},
 // { $group: {_id: {id:"$customer_id"}, total: { $sum: "$grand_total" } } },
-
-// Paid: { $arrayElemAt: ["$Paid", 0] },
-// Unpaid: { $arrayElemAt: ["$Unpaid", 0] },
