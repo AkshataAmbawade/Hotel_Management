@@ -2,22 +2,8 @@ const fetch = require("node-fetch")
 
 
 
-const url = 'https://weatherbit-v1-mashape.p.rapidapi.com/forecast/3hourly?lat=35.5&lon=-78.5';
-
-const options = {
-
-    method: 'GET',
-
-    headers: {
-
-      'X-RapidAPI-Key': '91b97c0bd3msh87fcde39a957e16p1673aejsn7d06c0f7c9b7',
-
-      'X-RapidAPI-Host': 'weatherbit-v1-mashape.p.rapidapi.com'
-
-    }
-
-  };
-
+const url = 'https://weatherapi-com.p.rapidapi.com/current.json?q=London'
+const options = {     method: 'GET',     headers: {         'X-RapidAPI-Key': '5ce2c2b0femsh943921cfa13a6fap1a3871jsnfc945cf9d7e6',         'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'     } };
 const fetchapi = async (req, res) => {
     try {
         const fetchData = await fetch(url, options).then((res) => res.json())
